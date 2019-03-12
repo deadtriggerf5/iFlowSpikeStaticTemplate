@@ -10,9 +10,7 @@ import ToolBar from 'devextreme-react/toolbar';
 import styled from 'styled-components';
 
 const View = styled.div`
-  display: flex;
-  align-items: flex-end;
-  z-index: 2000;
+  z-index: 1000;
 `;
 
 /* eslint-disable react/prefer-stateless-function */

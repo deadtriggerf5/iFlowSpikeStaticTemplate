@@ -22,7 +22,10 @@ import reducer from './reducer';
 import saga from './saga';
 
 const Container = styled.div`
-  margin: 10px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 10px;
 `;
 
 /* eslint-disable react/prefer-stateless-function */
@@ -142,7 +145,7 @@ export class EditView extends React.Component {
           <meta name="description" content="Description of EditView" />
         </Helmet>
         <h3>{this.props.location.state ? 'Добавление новой строки' : `Редактирование по LINK: ${this.props.selected.length > 1 ? this.props.selected[0].LINK : ''}`}</h3>
-        <Form formData={this.state.data} items={this.state.formItems} scrollingEnabled />
+        <Form formData={this.state.data} items={this.state.formItems} />
       </Container>
     );
   }

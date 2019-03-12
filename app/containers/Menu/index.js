@@ -23,14 +23,14 @@ class Menu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      drawerMode: document.body.offsetWidth > 1100 ? 'shrink' : 'overlap',
+      drawerMode: document.body.offsetWidth > 1100 ? 'desktop' : 'mobile',
       currentWidth: document.body.offsetWidth,
     };
   }
 
   componentDidMount() {
     this.getNavigationList();
-    window.onresize = this.onWindowResize;
+    window.onresize = () => this.onWindowResize();
   }
 
   // TODO drawerMode переименовать в DeviceType 
@@ -40,13 +40,19 @@ class Menu extends React.Component {
       this.state.currentWidth,
     );
     if (drawerMode) {
-      if (drawerMode === 'overlap') {
+      if (drawerMode === 'mobile') {
         this.props.setOpenedType(false);
         setTimeout(() => {
-          this.setState({ drawerMode });
+          this.setState({ 
+            drawerMode,
+            currentWidth: document.body.offsetWidth,
+          });
         }, 500)
       } else {
-        this.setState({ drawerMode });
+        this.setState({ 
+          drawerMode,
+          currentWidth: document.body.offsetWidth,
+        });
       }
     }
   };
@@ -58,7 +64,7 @@ class Menu extends React.Component {
   getComponent = () => (
     <MenuList
       navigation={this.props.navigation}
-      type={this.state.drawerMode === 'shrink' ? 'desktop' : 'mobile'}
+      type={this.state.drawerMode}
       onClick={this.props.setCurrentViewId}
     />
   );
@@ -75,10 +81,11 @@ class Menu extends React.Component {
         component={this.getComponent}
         style={{
           flex: 0, 
-          position: this.state.drawerMode === 'shrink' ? 'relative' : 'absolute', 
-          width: 'auto', 
-          height: this.state.drawerMode === 'shrink' ? 'auto' : 'calc(100% - 57px)',
+          position: this.state.drawerMode === 'desktop' ? 'relative' : 'absolute',
+          height: this.state.drawerMode === 'desktop' ? 'auto' : 'calc(100% - 57px)',
+          width: this.props.opened ? '100%' : 'auto',
           zIndex: 1000,
+          backgroundColor: this.state.drawerMode === 'desktop' ? 'transparent' : '#00000038',
         }}
       />
     );

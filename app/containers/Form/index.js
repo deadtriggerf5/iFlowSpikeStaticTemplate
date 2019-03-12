@@ -23,8 +23,10 @@ const View = styled.div`
   flex: 1;
   flex-direction: column;
   min-width: 200px;
+  min-height: 500px;
   background-color: white;
   padding: 20px;
+  overflow: scroll;
 `
 
 const employee = {
